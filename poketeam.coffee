@@ -1,9 +1,20 @@
-require ['fs']
-alert 'happy'
+types = []
+pokemon = []
+$.ajax
+  async: false
+  url: "/poketeam/js/app/pokemon_db.json"
+  dataType: "json"
+  success: (data)->
+    types = data["types"]
 
+$.ajax
+  async: false
+  url: "/poketeam/js/app/pokemon.json"
+  dataType: "json"
+  success: (data)->
+    pokemon = data["pokemon"]
+console.log pokemon
 
-data = fs.readfile('./pokemon_db.json')
-json_data = JSON.parse data
-
-alert 'happy2'
-console.log json_data
+$ ->
+  pokemon_list = pokemon
+  $("#autocomplete").autocomplete source: pokemon
